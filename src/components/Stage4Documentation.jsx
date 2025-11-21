@@ -23,8 +23,11 @@ const Stage4Documentation = ({ claimData, onDocumentationComplete, onBack }) => 
         initialDocs[key] = { notes: '', hasImage: false };
       }
     });
-    setTreatmentDocumentation(prev => ({ ...prev, ...initialDocs }));
-  }, [claimData]);
+    if (Object.keys(initialDocs).length > 0) {
+      setTreatmentDocumentation(prev => ({ ...prev, ...initialDocs }));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [claimData.selectedDiagnostic, claimData.selectedOngoing]);
 
   const updateTreatmentDocumentation = (code, description, field, value) => {
     const key = `${code}_${description}`;
